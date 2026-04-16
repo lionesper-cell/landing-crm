@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Smart Funnel - Production Ready</title>
+
+<style>
+
+body{
+  margin:0;
+  font-family:system-ui;
+  color:#fff;
+  overflow-x:hidden;
+  background:#03060f;
+}
+
+html{scroll-behavior:auto;}
+
+/* BACKGROUND */
+.bg{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(0,255,170,0.18), transparent 45%),
+    radial-gradient(circle at 85% 25%, rgba(0,140,255,0.22), transparent 50%),
+    radial-gradient(circle at 50% 85%, rgba(0,255,120,0.12), transparent 55%),
+    linear-gradient(180deg,#02040a,#050a18);
+}
+
+.bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=2000&q=70');
+  background-size:cover;
+  background-position:center;
+  opacity:0.22;
+  filter:blur(1px) saturate(1.3);
+}
+
+.bg::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at center, rgba(0,0,0,0.35), rgba(0,0,0,0.82));
+}
+
+/* TOP UI */
+.counter{
+  position:fixed;
+  top:14px;
+  left:14px;
+  z-index:999;
+  background:rgba(0,255,170,0.12);
+  border:1px solid rgba(0,255,170,0.35);
+  padding:10px 14px;
+  border-radius:12px;
+  backdrop-filter:blur(10px);
+  font-size:13px;
+}
+
+.progress{
+  position:fixed;
+  top:0;
+  left:0;
+  height:3px;
+  width:0%;
+  background:linear-gradient(90deg,#00ffb2,#00a3ff);
+  z-index:1000;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
+
+.hero h1{
+  font-size:52px;
+  font-weight:900;
+  background:linear-gradient(90deg,#00ffb2,#00a3ff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin:10px 0;
+}
+
+.hero-line{
+  display:block;
+  overflow:hidden;
+  white-space:nowrap;
+  border-right:2px solid #00ffb2;
+  width:0;
+  animation:typing 2.2s steps(40,end) forwards, blink .7s infinite;
+}
+
+@keyframes typing{
+  from{width:0}
+  to{width:100%}
+}
+
+@keyframes blink{
+  50%{border-color:transparent}
+}
+
+.hero p{
+  opacity:0.92;
+  line-height:1.9;
+  max-width:680px;
+  margin:auto;
+}
+
+/* UNIFIED BUTTONS */
+.cta{
+  margin-top:25px;
+  padding:16px 26px;
+  border:none;
+  border-radius:14px;
+  font-weight:bold;
+  cursor:pointer;
+  background:linear-gradient(90deg,#00ffb2,#00a3ff);
+  color:#001018;
+  width:100%;
+  max-width:500px;   /* 👈 مهم */
+  display:block;
+  margin-left:auto;  /* 👈 مهم */
+  margin-right:auto; /* 👈 مهم */
+  transition:0.3s;
+  box-shadow:0 10px 30px rgba(0,255,170,0.25);
+}
+
+.cta:hover{transform:scale(1.03)}
+
+/* SECTIONS */
+.section{
+  padding:120px 20px;
+}
+
+.section-title{
+  text-align:center;
+  font-size:34px;
+  font-weight:900;
+  margin-bottom:25px;
+  background:linear-gradient(90deg,#00ffb2,#00a3ff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.grid2{
+  display:grid;
+  grid-template-columns:repeat(2, 1fr); /* 2 أعمدة */
+  gap:18px;
+}
+
+/* 👇 موبايل */
+@media(max-width:768px){
+  .grid2{
+    grid-template-columns:1fr; /* عمود واحد */
+  }
+}
+
+.card{
+  background:rgba(0,0,0,0.42);
+  border:1px solid rgba(0,255,170,0.35);
+  backdrop-filter:blur(18px);
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 0 35px rgba(0,255,150,0.15);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-7px);
+  box-shadow:0 0 55px rgba(0,255,150,0.25);
+}
+
+.form{
+  background:rgba(0,0,0,0.42);
+  border:1px solid rgba(0,255,170,0.35);
+  backdrop-filter:blur(18px);
+  padding:25px;
+  border-radius:18px;
+}
+
+.glass-box{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.15);
+  backdrop-filter:blur(18px);
+  border-radius:22px;
+  padding:28px;
+  margin-top:20px;
+  text-align:center;
+  box-shadow:0 0 40px rgba(0,255,180,0.08);
+}
+
+.big-text{
+  font-size:20px;
+  font-weight:800;
+  line-height:1.8;
+  margin-bottom:18px;
+}
+
+.sub-text{
+  opacity:0.85;
+  line-height:1.8;
+  margin-bottom:12px;
+}
+
+.warning-text{
+  margin-top:18px;
+  font-weight:700;
+  color:#00ffb2;
+}
+
+.divider{
+  height:1px;
+  background:rgba(255,255,255,0.1);
+  margin:18px 0;
+}
+
+.smartBox{
+  position:fixed;
+  bottom:18px;
+  right:18px;
+  background:linear-gradient(90deg,#00ffb2,#00a3ff);
+  color:#001018;
+  padding:14px 18px;
+  border-radius:50px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 10px 30px rgba(0,255,150,0.25);
+  max-width:240px;
+  text-align:center;
+}
+
+.smartHint{
+  position:fixed;
+  bottom:80px;
+  right:18px;
+  background:rgba(0,0,0,0.5);
+  border:1px solid rgba(0,255,170,0.25);
+  padding:10px 14px;
+  border-radius:12px;
+  font-size:12px;
+  max-width:260px;
+}
+
+.glass-box{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.15);
+  backdrop-filter:blur(18px);
+  border-radius:22px;
+  padding:28px;
+  margin-top:20px;
+  text-align:center;
+  box-shadow:0 0 40px rgba(0,255,180,0.08);
+}
+
+/* 👇 إضافة حركة دخول */
+.fade-in{
+  opacity:0;
+  transform:translateY(20px);
+  animation:fadeInUp 0.8s forwards;
+}
+
+@keyframes fadeInUp{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.big-text{
+  font-size:20px;
+  font-weight:800;
+  line-height:1.8;
+  margin-bottom:18px;
+}
+
+.sub-text{
+  opacity:0.85;
+  line-height:1.8;
+  margin-bottom:12px;
+}
+
+.warning-text{
+  margin-top:18px;
+  font-weight:700;
+  color:#00ffb2;
+}
+
+.divider{
+  height:1px;
+  background:rgba(255,255,255,0.1);
+  margin:18px 0;
+}
+
+.step{
+  text-align:right;
+  margin:18px 0;
+  padding:14px;
+  border-right:3px solid rgba(0,255,180,0.5);
+  background:rgba(255,255,255,0.03);
+  border-radius:12px;
+}
+
+.step h3{
+  margin:0 0 6px 0;
+  font-size:16px;
+  color:#00ffb2;
+}
+.card{
+  opacity:0;
+  transform:translateY(30px);
+  transition:0.6s ease;
+}
+
+.card.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="progress" id="progress"></div>
+<div class="counter">🔥 <span id="live">312</span> يشاهد الآن</div>
+
+<div class="smartBox" id="ctaBox" onclick="nextStep()">تفكر بعمق</div>
+<div class="smartHint" id="hint">ابدأ رحلتك الآن</div>
+
+<div class="container">
+
+<section class="hero"id ="s1">
+  <div>
+    <h1><span class="hero-line">حوّل الإنترنت إلى دخل حقيقي</span></h1>
+    <h1><span class="hero-line" style="animation-delay:2.2s">بدون رأس مال… فقط قرار</span></h1>
+    <p>نظام عمل رقمي متكامل يعتمد على الأتمتة<br>فرصة حقيقية لبناء مصدر دخل من المنزل</p>
+   <p style="opacity:0.8; margin-top:15px;">
+هذا ليس عرضاً تقليدياً… بل طريقة تفكير جديدة لبناء دخل رقمي.
+</p>
+   </div>
+   </section>
+
+<section class="section" id="s2">
+  <div class="section-title">لماذا يفشل أغلب الناس؟</div>
+  <div class="grid2">
+<div class="card">
+  💸
+  <h3>دخل محدود</h3>
+  <p>الاعتماد على راتب واحد لا يكفي لبناء مستقبل</p>
+</div>
+
+<div class="card">
+  ⏳
+  <h3>الوقت يضيع</h3>
+  <p>تمر الأيام بدون تقدم حقيقي أو تغيير واضح</p>
+</div>
+
+<div class="card">
+  📉
+  <h3>لا يوجد نمو</h3>
+  <p>نفس النتيجة كل شهر بدون تطور</p>
+</div>
+
+<div class="card">
+  🔒
+  <h3>نفس الدائرة</h3>
+  <p>العمل → التعب → راتب → تكرار</p>
+</div>
+
+<div class="card">
+  😓
+  <h3>ضغط مستمر</h3>
+  <p>تفكير دائم في المصاريف والمستقبل</p>
+</div>
+
+<div class="card">
+  🚫
+  <h3>بدون بديل</h3>
+  <p>لا توجد فرصة واضحة للخروج من هذا الوضع</p>
+</div>
+</div>
+  
+<button class="cta" onclick="smoothGo('s3')">أكمل القراءة ↓</button>
+</section>
+
+<section class="section" id="s3">
+
+  <div class="grid2">
+
+<div class="card">
+  🌍
+  <h3>عمل من أي مكان</h3>
+  <p>كل ما تحتاجه هو اتصال بالإنترنت</p>
+</div>
+
+<div class="card">
+  📱
+  <h3>من الهاتف</h3>
+  <p>إدارة العمل بسهولة بدون تعقيد</p>
+</div>
+
+<div class="card">
+  ⚙️
+  <h3>نظام جاهز</h3>
+  <p>آلية عمل واضحة ومجربة</p>
+</div>
+
+<div class="card">
+  💰
+  <h3>دخل إضافي</h3>
+  <p>مصدر دخل بجانب عملك الحالي</p>
+</div>
+
+<div class="card">
+  📈
+  <h3>قابل للتوسع</h3>
+  <p>إمكانية زيادة الأرباح مع الوقت</p>
+</div>
+
+<div class="card">
+  🔓
+  <h3>حرية</h3>
+  <p>تحكم أكبر في وقتك وحياتك</p>
+</div>
+</div>
+
+  <button class="cta" onclick="smoothGo('s4')">تابع ↓</button>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-title">هل يناسبك هذا العمل؟</div>
+  <div class="grid2">
+<div class="card">
+  🔥
+  <h3>هل تريد التغيير فعلاً؟</h3>
+</div>
+
+<div class="card">
+  🧠
+  <h3>هل أنت مستعد للتعلم؟</h3>
+</div>
+
+<div class="card">
+  ⏱
+  <h3>هل لديك وقت يومي؟</h3>
+</div>
+
+<div class="card">
+  🚀
+  <h3>هل تبحث عن دخل إضافي؟</h3>
+</div>
+
+<div class="card">
+  💡
+  <h3>هل لديك عقلية التطور؟</h3>
+</div>
+
+<div class="card">
+  ✅
+  <h3>هل ستبدأ فعلاً؟</h3>
+</div>
+</div>
+
+  <button class="cta" onclick="smoothGo('s5')">النتيجة النهائية ↓</button>
+
+</section>
+
+<section class="section" id="s5">
+
+  <div class="section-title">هل هذه فرصتك فعلاً؟</div>
+
+<div class="glass-box fade-in" style="max-width:750px; margin:auto;">
+
+  <h2 style="margin-bottom:15px;">
+    مشروع عمل من المنزل 🚀
+  </h2>
+
+  <p class="sub-text">
+    طريقك للوصول إلى الحرية المالية، بعيداً عن الوظيفة التقليدية والرواتب المحدودة 💸
+  </p>
+
+  <p class="sub-text">
+    أصبح الربح من الإنترنت اليوم حقيقة، وليس مجرد فكرة أو حلم 📈
+  </p>
+
+  <div class="divider"></div>
+
+  <p class="sub-text">
+    هذا المشروع يعتمد على التسويق عبر الإنترنت،  
+    حيث تقوم بنشر الإعلانات والعمل من أي مكان 🌍
+  </p>
+
+  <p class="sub-text">
+    نعمل بنظام واضح ومجرب، وليس عشوائي  
+    خطوات محددة + تدريب + متابعة مستمرة
+  </p>
+
+  <div class="step">
+    <h3>كيف يبدأ العمل؟</h3>
+    <p>نقوم بتعليمك طريقة نشر الإعلانات وإدارة الحسابات بطريقة صحيحة واحترافية</p>
+  </div>
+
+  <div class="step">
+    <h3>كيف تحقق النتائج؟</h3>
+    <p>كلما التزمت أكثر وطبّقت النظام بشكل أدق… زادت فرص تحقيق دخل فعلي</p>
+  </div>
+
+  <div class="step">
+    <h3>لماذا نحن؟</h3>
+    <p>لأننا لا نقدم وعود فارغة… بل نظام عمل عالمي مطبق وأثبت تفوقه</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <p class="sub-text">
+    ستحصل على تدريب كامل يساعدك على البدء خطوة بخطوة 🧠
+  </p>
+
+  <p class="warning-text">
+    ⚠️ نحن نبحث عن أشخاص جادين فقط… وليس للجميع
+  </p>
+
+  <div style="
+    margin:20px 0;
+    padding:15px;
+    background:rgba(0,255,170,0.08);
+    border-radius:14px;
+  ">
+    إذا كنت تبحث عن فرصة حقيقية لتغيير وضعك…  
+    فابدأ الآن ولا تؤجل القرار
+  </div>
+
+  <button class="cta" onclick="window.location.href='form.html'">
+   👉 ابدأ الآن واحصل على التفاصيل الكاملة 🚀
+  </button> 
+  </div>
+
+<div style="
+  margin-top:15px;
+  font-size:13px;
+  opacity:0.8;
+  line-height:1.7;
+  text-align:center;
+">
+  🔒 بياناتك آمنة 100% ولن يتم مشاركتها مع أي طرف ثالث<br>
+  ⚡ سيتم التواصل معك فقط بخصوص تفاصيل العمل<br>
+  🧠 لا يوجد أي التزام مالي عند التسجيل
+</div>
+
+</section> 
+</div>
+
+<script>
+
+let sections=["s1","s2","s3","s4","s5"];
+let current=0;
+
+function smoothGo(id){
+  const el=document.getElementById(id);
+  const target=el.getBoundingClientRect().top + window.pageYOffset;
+  smoothScrollTo(target, 1200);
+  current=sections.indexOf(id);
+  reactToUser();
+}
+
+function smoothScrollTo(target,duration){
+  const start=window.pageYOffset;
+  const diff=target-start;
+  let startTime=null;
+
+  function animation(currentTime){
+    if(!startTime) startTime=currentTime;
+    const time=currentTime-startTime;
+    const progress=Math.min(time/duration,1);
+    window.scrollTo(0,start + diff*easeInOutCubic(progress));
+    if(time<duration) requestAnimationFrame(animation);
+  }
+
+  function easeInOutCubic(t){
+    return t<0.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
+  }
+
+  requestAnimationFrame(animation);
+}
+
+function nextStep(){
+  if(current<sections.length-1){
+    current++;
+    smoothGo(sections[current]);
+  }
+}
+
+// behavior engine
+let timeSpent=0;
+let lastScroll=window.scrollY;
+let speed=0;
+
+setInterval(()=>timeSpent++,1000);
+
+window.addEventListener('scroll',()=>{
+  let now=window.scrollY;
+  speed=Math.abs(now-lastScroll);
+  lastScroll=now;
+
+  let h=document.documentElement;
+  let sc=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
+  document.getElementById('progress').style.width=sc+"%";
+
+  reactToUser();
+});
+
+function reactToUser(){
+  let box=document.getElementById('ctaBox');
+  let hint=document.getElementById('hint');
+
+  if(timeSpent<5){
+    box.innerText="ابدأ الآن";
+    hint.innerText="اكتشف الفرصة خلال ثواني";
+  }else if(speed>80){
+    box.innerText="تمهل قليلاً";
+    hint.innerText="أنت تتحرك بسرعة، خذ وقتك";
+  }else if(current>=3){
+    box.innerText="أنت قريب جداً";
+    hint.innerText="الخطوة الأخيرة أمامك";
+  }else if(current>=1){
+    box.innerText="تابع الاستكشاف";
+    hint.innerText="كل خطوة تقربك من القرار";
+  }else{
+    box.innerText="ابدأ الآن";
+    hint.innerText="ابدأ رحلتك الآن";
+  }
+}
+
+let c=312;
+setInterval(()=>{
+  c+=Math.floor(Math.random()*3);
+  document.querySelector('.counter span').innerText=c;
+},2500);
+
+reactToUser();
+
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("show");
+    }
+  });
+},{ threshold:0.2 });
+
+document.querySelectorAll('.card').forEach(card=>{
+  observer.observe(card);
+});
+
+</script>
+
+</button>
+</body>
+</html>
