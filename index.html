@@ -23,28 +23,29 @@ html{scroll-behavior:auto;}
   inset:0;
   z-index:-3;
   background:
-    radial-gradient(circle at 15% 20%, rgba(0,255,170,0.18), transparent 45%),
-    radial-gradient(circle at 85% 25%, rgba(0,140,255,0.22), transparent 50%),
-    radial-gradient(circle at 50% 85%, rgba(0,255,120,0.12), transparent 55%),
-    linear-gradient(180deg,#02040a,#050a18);
+    radial-gradient(circle at 20% 20%, rgba(0,255,200,0.25), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(0,120,255,0.35), transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(180,0,255,0.18), transparent 50%),
+    linear-gradient(180deg,#02030a,#050816);
+  overflow:hidden;
 }
 
 .bg::after{
   content:"";
   position:absolute;
   inset:0;
-  background:url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=2000&q=70');
-  background-size:cover;
-  background-position:center;
-  opacity:0.22;
-  filter:blur(1px) saturate(1.3);
+  background:
+    url("https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=2000&q=70");
+  opacity:0.12;
+  filter:blur(2px) saturate(1.4);
+  mix-blend-mode:screen;
 }
 
 .bg::before{
   content:"";
   position:absolute;
   inset:0;
-  background:radial-gradient(circle at center, rgba(0,0,0,0.35), rgba(0,0,0,0.82));
+  background:radial-gradient(circle at center, rgba(0,0,0,0.4), rgba(0,0,0,0.85));
 }
 
 /* TOP UI */
@@ -162,17 +163,6 @@ html{scroll-behavior:auto;}
   backdrop-filter:blur(18px);
   padding:25px;
   border-radius:18px;
-}
-
-.glass-box{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.15);
-  backdrop-filter:blur(18px);
-  border-radius:22px;
-  padding:28px;
-  margin-top:20px;
-  text-align:center;
-  box-shadow:0 0 40px rgba(0,255,180,0.08);
 }
 
 .big-text{
@@ -309,42 +299,45 @@ html{scroll-behavior:auto;}
 }
 
 .card{
-  background:rgba(0,0,0,0.42);
-  border:1px solid rgba(0,255,170,0.35);
-  backdrop-filter:blur(18px);
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(0,255,200,0.25);
+  backdrop-filter:blur(20px);
   border-radius:18px;
   padding:22px;
-  box-shadow:0 0 35px rgba(0,255,150,0.15);
-  transition:0.3s;
-
-  width:100%;
-  box-sizing:border-box;
-
-  opacity:0;
-  transform:translateY(30px);
+  box-shadow:
+    0 0 25px rgba(0,255,200,0.08),
+    inset 0 0 20px rgba(255,255,255,0.02);
+  transition:0.4s;
+  position:relative;
+  overflow:hidden;
 }
 
-.card.show{
-  opacity:1;
-  transform:translateY(0);
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background:linear-gradient(120deg,transparent,rgba(0,255,200,0.2),transparent);
+  transform:translateX(-100%);
+  animation:shine 5s infinite;
 }
 
-.card:hover{
-  transform:translateY(-7px);
-  box-shadow:0 0 55px rgba(0,255,150,0.25);
+@keyframes shine{
+  0%{transform:translateX(-100%)}
+  50%{transform:translateX(100%)}
+  100%{transform:translateX(100%)}
 }
-.hero-title{
-  font-size:48px;
-  font-weight:900;
-  line-height:1.25;
-  text-align:center;
 
-  background:linear-gradient(90deg,#00ffb2,#00a3ff);
+.hero-title, .section-title{
+  background:linear-gradient(90deg,#00ffd5,#00a3ff,#b300ff);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+  text-shadow:0 0 30px rgba(0,255,200,0.2);
+}
 
-  margin-top:-20px; /* رفع للأعلى */
-  margin-bottom:20px;
+.cta{
+  background:linear-gradient(90deg,#00ffd5,#00a3ff);
+  box-shadow:0 0 30px rgba(0,255,200,0.25);
+  border:1px solid rgba(255,255,255,0.1);
 }
 
 .hero-sub p{
@@ -379,7 +372,6 @@ html{scroll-behavior:auto;}
   }
 }
 
-
 </style>
 </head>
 <body>
@@ -388,9 +380,6 @@ html{scroll-behavior:auto;}
 <div class="progress" id="progress"></div>
 <div class="counter">🔥 <span id="live">312</span> يشاهد الآن</div>
 
-<div class="smartBox" id="ctaBox" onclick="nextStep()">تفكر بعمق</div>
-<div class="smartHint" id="hint">ابدأ رحلتك الآن</div>
-
 <div class="container">
 
 <section class="hero"id ="s1">
@@ -398,15 +387,14 @@ html{scroll-behavior:auto;}
 <h1 class="hero-title">
   حوّل الانترنت<br>
   لمصدر دخل حقيقي<br>
-  بدون رأس مال<br>
-  فقط قرار
+  بدون خبرة مسبقة
 </h1>
 <div class="hero-sub">
-  <p>نظام عمل رقمي متكامل يعتمد على الأتمتة</p>
-  <p>فرصة حقيقية لبناء مصدر دخل من المنزل</p>
+  <p>نظام عمل رقمي مصمم ليبدأ معك من الصفر</p>
+  <p>ويأخذك خطوة بخطوة نحو بناء دخل إضافي</p>
 
   <div class="hero-highlight">
-    هذا ليس عرضاً تقليدياً… بل طريقة تفكير جديدة لبناء دخل رقمي.
+    الأشخاص الذين يبدأون الآن هم الأقرب لتغيير وضعهم خلال فترة قصيرة
   </div>
 </div>
    </section>
@@ -416,207 +404,160 @@ html{scroll-behavior:auto;}
   <div class="grid2">
 <div class="card">
   💸
-  <h3>دخل محدود</h3>
-  <p>الاعتماد على راتب واحد لا يكفي لبناء مستقبل</p>
-</div>
-
-<div class="card">
-  ⏳
-  <h3>الوقت يضيع</h3>
-  <p>تمر الأيام بدون تقدم حقيقي أو تغيير واضح</p>
-</div>
-
-<div class="card">
-  📉
-  <h3>لا يوجد نمو</h3>
-  <p>نفس النتيجة كل شهر بدون تطور</p>
+  <p>الاعتماد على مصدر دخل واحد لا يمنحك الأمان المالي</p>
 </div>
 
 <div class="card">
   🔒
-  <h3>نفس الدائرة</h3>
-  <p>العمل → التعب → راتب → تكرار</p>
+  <p>الوقت يمر بدون بناء مهارة أو نظام حقيقي</p>
 </div>
 
 <div class="card">
   😓
-  <h3>ضغط مستمر</h3>
-  <p>تفكير دائم في المصاريف والمستقبل</p>
+  <p>لا يوجد تقدم واضح رغم الجهد المستمر</p>
 </div>
 
 <div class="card">
   🚫
-  <h3>بدون بديل</h3>
   <p>لا توجد فرصة واضحة للخروج من هذا الوضع</p>
 </div>
 </div>
   
-<button class="cta" onclick="smoothGo('s3')">أكمل القراءة ↓</button>
+<button class="cta" onclick="smoothGo('s3')">هل يناسبك؟ ↓</button>
 </section>
 
 <section class="section" id="s3">
-
-  <div class="grid2">
-
-<div class="card">
-  🌍
-  <h3>عمل من أي مكان</h3>
-  <p>كل ما تحتاجه هو اتصال بالإنترنت</p>
-</div>
-
-<div class="card">
-  📱
-  <h3>من الهاتف</h3>
-  <p>إدارة العمل بسهولة بدون تعقيد</p>
-</div>
-
-<div class="card">
-  ⚙️
-  <h3>نظام جاهز</h3>
-  <p>آلية عمل واضحة ومجربة</p>
-</div>
-
-<div class="card">
-  💰
-  <h3>دخل إضافي</h3>
-  <p>مصدر دخل بجانب عملك الحالي</p>
-</div>
-
-<div class="card">
-  📈
-  <h3>قابل للتوسع</h3>
-  <p>إمكانية زيادة الأرباح مع الوقت</p>
-</div>
-
-<div class="card">
-  🔓
-  <h3>حرية</h3>
-  <p>تحكم أكبر في وقتك وحياتك</p>
-</div>
-</div>
-
-  <button class="cta" onclick="smoothGo('s4')">تابع ↓</button>
-</section>
-
-<section class="section" id="s4">
-  <div class="section-title">هل يناسبك هذا العمل؟</div>
+  <div class="section-title">هل يناسبك؟</div>
   <div class="grid2">
 <div class="card">
   🔥
-  <h3>هل تريد التغيير فعلاً؟</h3>
-</div>
-
-<div class="card">
-  🧠
-  <h3>هل أنت مستعد للتعلم؟</h3>
+  <h3>تبحث فعليًا عن تغيير وضعك الحالي</h3>
 </div>
 
 <div class="card">
   ⏱
-  <h3>هل لديك وقت يومي؟</h3>
-</div>
-
-<div class="card">
-  🚀
-  <h3>هل تبحث عن دخل إضافي؟</h3>
+  <h3>تستطيع تخصيص وقت يومي بسيط</h3>
 </div>
 
 <div class="card">
   💡
-  <h3>هل لديك عقلية التطور؟</h3>
+  <h3>مستعد تتعلم نظام بسيط خطوة بخطوة</h3>
 </div>
 
 <div class="card">
   ✅
-  <h3>هل ستبدأ فعلاً؟</h3>
+  <h3>تريد بناء مصدر دخل إضافي</h3>
 </div>
 </div>
 
-  <button class="cta" onclick="smoothGo('s5')">النتيجة النهائية ↓</button>
+  <button class="cta" onclick="smoothGo('s4')">نقدم لك ↓</button>
+</section>
+
+<section class="section" id="s4">
+  <div class="section-title">الفوائد</div>
+  <div class="grid2">
+
+<div class="card">
+  🌍
+  <p>تعمل من أي مكان باستخدام هاتفك أو جهازك</p>
+</div>
+
+<div class="card">
+    📈
+  <p>تبدأ بدون تعقيد أو خبرة مسبقة</p>
+</div>
+
+<div class="card">
+   💰
+  <p>فرصة لبناء دخل إضافي تدريجي</p>
+</div>
+
+<div class="card">
+   ⚙️
+  <p>نظام واضح بدل التجربة العشوائية</p>
+</div>
+</div>
+
+  <button class="cta" onclick="smoothGo('s5')">شاهد كيف يبدأ العمل ↓</button>
 
 </section>
 
 <section class="section" id="s5">
 
-  <div class="section-title">هل هذه فرصتك فعلاً؟</div>
+  <div class="section-title">هذه فرصتك الحالية</div>
 
-<div class="glass-box fade-in" style="max-width:750px; margin:auto;">
+  <div class="glass-box fade-in" style="max-width:750px; margin:auto;">
 
-  <h2 style="margin-bottom:15px;">
-    مشروع عمل من المنزل 🚀
-  </h2>
+    <h2 style="margin-bottom:15px;">
+      نظام عمل رقمي منظم 🚀
+    </h2>
 
-  <p class="sub-text">
-    طريقك للوصول إلى الحرية المالية، بعيداً عن الوظيفة التقليدية والرواتب المحدودة 💸
-  </p>
+    <p class="sub-text">
+      فرصة لبناء مصدر دخل إضافي بطريقة بسيطة وواضحة، بدون تعقيد أو خبرة مسبقة
+    </p>
 
-  <p class="sub-text">
-    أصبح الربح من الإنترنت اليوم حقيقة، وليس مجرد فكرة أو حلم 📈
-  </p>
+    <p class="sub-text">
+      اليوم أصبح العمل عبر الإنترنت خيار حقيقي لمن يريد تغيير وضعه الحالي 📈
+    </p>
 
-  <div class="divider"></div>
+    <div class="divider"></div>
 
-  <p class="sub-text">
-    هذا المشروع يعتمد على التسويق عبر الإنترنت،  
-    حيث تقوم بنشر الإعلانات والعمل من أي مكان 🌍
-  </p>
+    <p class="sub-text">
+      يعتمد النظام على خطوات واضحة:
+      التعلم → التطبيق → التنفيذ بشكل منظم 🌍
+    </p>
 
-  <p class="sub-text">
-    نعمل بنظام واضح ومجرب، وليس عشوائي  
-    خطوات محددة + تدريب + متابعة مستمرة
-  </p>
+    <p class="sub-text">
+      لن تبدأ بشكل عشوائي، بل من خلال مسار تدريبي يساعدك على التقدم خطوة بخطوة
+    </p>
 
-  <div class="step">
-    <h3>كيف يبدأ العمل؟</h3>
-    <p>نقوم بتعليمك طريقة نشر الإعلانات وإدارة الحسابات بطريقة صحيحة واحترافية</p>
+    <div class="step">
+      <h3>كيف تبدأ؟</h3>
+      <p>تبدأ بفهم الأساسيات ثم تطبيق خطوات بسيطة بشكل عملي</p>
+    </div>
+
+    <div class="step">
+      <h3>كيف تتقدم؟</h3>
+      <p>كلما التزمت أكثر بالتطبيق، ستلاحظ تطور تدريجي في النتائج</p>
+    </div>
+
+    <div class="step">
+      <h3>ما الذي يميز هذا النظام؟</h3>
+      <p>وضوح كامل + خطوات محددة + بدون تجارب عشوائية</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="warning-text">
+      ⚠️ هذا النظام مخصص للأشخاص الجادين فقط وليس للجميع
+    </p>
+
+    <div style="
+      margin:20px 0;
+      padding:15px;
+      background:rgba(0,255,170,0.08);
+      border-radius:14px;
+    ">
+      إذا كنت تبحث عن بداية فعلية لتغيير حياتك…  
+      فالخطوة التالية بين يديك الآن
+    </div>
+
+    <button class="cta" onclick="window.location.href='form.html'">
+      👉 سجل الآن واحصل على التفاصيل الكاملة
+    </button> 
+
   </div>
-
-  <div class="step">
-    <h3>كيف تحقق النتائج؟</h3>
-    <p>كلما التزمت أكثر وطبّقت النظام بشكل أدق… زادت فرص تحقيق دخل فعلي</p>
-  </div>
-
-  <div class="step">
-    <h3>لماذا نحن؟</h3>
-    <p>لأننا لا نقدم وعود فارغة… بل نظام عمل عالمي مطبق وأثبت تفوقه</p>
-  </div>
-
-  <div class="divider"></div>
-
-  <p class="sub-text">
-    ستحصل على تدريب كامل يساعدك على البدء خطوة بخطوة 🧠
-  </p>
-
-  <p class="warning-text">
-    ⚠️ نحن نبحث عن أشخاص جادين فقط… وليس للجميع
-  </p>
 
   <div style="
-    margin:20px 0;
-    padding:15px;
-    background:rgba(0,255,170,0.08);
-    border-radius:14px;
+    margin-top:15px;
+    font-size:13px;
+    opacity:0.8;
+    line-height:1.7;
+    text-align:center;
   ">
-    إذا كنت تبحث عن فرصة حقيقية لتغيير وضعك…  
-    فابدأ الآن ولا تؤجل القرار
+    🔒 بياناتك تبقى سرية بالكامل ولا يتم مشاركتها مع أي طرف<br>
+    ⚡ سيتم التواصل معك فقط بخصوص تفاصيل التسجيل
   </div>
-
-  <button class="cta" onclick="window.location.href='form.html'">
-   👉 ابدأ الآن واحصل على التفاصيل الكاملة 🚀
-  </button> 
-  </div>
-
-<div style="
-  margin-top:15px;
-  font-size:13px;
-  opacity:0.8;
-  line-height:1.7;
-  text-align:center;
-">
-  🔒 بياناتك آمنة 100% ولن يتم مشاركتها مع أي طرف ثالث<br>
-  ⚡ سيتم التواصل معك فقط بخصوص تفاصيل العمل<br>
-  🧠 لا يوجد أي التزام مالي عند التسجيل
-</div>
 
 </section> 
 </div>
@@ -631,7 +572,6 @@ function smoothGo(id){
   const target=el.getBoundingClientRect().top + window.pageYOffset;
   smoothScrollTo(target, 1200);
   current=sections.indexOf(id);
-  reactToUser();
 }
 
 function smoothScrollTo(target,duration){
@@ -676,39 +616,13 @@ window.addEventListener('scroll',()=>{
   let h=document.documentElement;
   let sc=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
   document.getElementById('progress').style.width=sc+"%";
-
-  reactToUser();
 });
-
-function reactToUser(){
-  let box=document.getElementById('ctaBox');
-  let hint=document.getElementById('hint');
-
-  if(timeSpent<5){
-    box.innerText="ابدأ الآن";
-    hint.innerText="اكتشف الفرصة خلال ثواني";
-  }else if(speed>80){
-    box.innerText="تمهل قليلاً";
-    hint.innerText="أنت تتحرك بسرعة، خذ وقتك";
-  }else if(current>=3){
-    box.innerText="أنت قريب جداً";
-    hint.innerText="الخطوة الأخيرة أمامك";
-  }else if(current>=1){
-    box.innerText="تابع الاستكشاف";
-    hint.innerText="كل خطوة تقربك من القرار";
-  }else{
-    box.innerText="ابدأ الآن";
-    hint.innerText="ابدأ رحلتك الآن";
-  }
-}
 
 let c=312;
 setInterval(()=>{
   c+=Math.floor(Math.random()*3);
   document.querySelector('.counter span').innerText=c;
 },2500);
-
-reactToUser();
 
 const observer = new IntersectionObserver((entries)=>{
   entries.forEach(entry=>{
@@ -720,6 +634,70 @@ const observer = new IntersectionObserver((entries)=>{
 
 document.querySelectorAll('.card').forEach(card=>{
   observer.observe(card);
+});
+
+</script>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwbhRkS2R4LDnxC0fZtN17k5td4S70K5OwnQ2x998vOpL1FUL5JV3-4oXzXNn5jgenp/exec";
+const API_KEY = "LION_SECRET_2026";
+
+let startTime = Date.now();
+let maxScroll = 0;
+
+function getDevice() {
+  return /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : "desktop";
+}
+
+function getSource() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("utm_source") || document.referrer || "direct";
+}
+
+function sendLog(action) {
+
+  const payload = {
+    type: "log",
+    action: action,
+    page: "index.html",
+    source: getSource(),
+    device: getDevice(),
+    scroll: maxScroll,
+    timeSpent: Math.round((Date.now() - startTime) / 1000),
+    apiKey: API_KEY,
+    Whatsapp: ""
+  };
+
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    body: JSON.stringify(payload),
+    headers: {
+      "Content-Type": "text/plain"
+    }
+  });
+}
+
+window.addEventListener("load", () => {
+  sendLog("PAGE_VIEW");
+});
+
+window.addEventListener("scroll", () => {
+  const scrollTop = window.scrollY + window.innerHeight;
+  const docHeight = document.body.scrollHeight;
+
+  const percent = Math.round((scrollTop / docHeight) * 100);
+
+  if (percent > maxScroll) {
+    maxScroll = percent;
+
+    if (percent % 25 === 0) {
+      sendLog("SCROLL");
+    }
+  }
+});
+
+window.addEventListener("beforeunload", () => {
+  sendLog("EXIT");
 });
 
 </script>
