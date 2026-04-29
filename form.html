@@ -20,43 +20,24 @@ body{
   min-height:100vh;
   overflow:hidden;
 
-  background:
-    radial-gradient(circle at 15% 20%, rgba(0,255,170,0.15), transparent 45%),
-    radial-gradient(circle at 85% 25%, rgba(0,140,255,0.20), transparent 50%),
-    radial-gradient(circle at 50% 85%, rgba(0,255,120,0.10), transparent 55%),
-    linear-gradient(180deg,#02040a,#050a18);
+  background: 
+    radial-gradient(circle at 15% 20%, rgba(0,255,170,0.08), transparent 45%),
+    radial-gradient(circle at 85% 25%, rgba(0,140,255,0.12), transparent 50%),
+    linear-gradient(180deg, #0a0e1a, #131a30);
 }
 
-/* خلفية AI */
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:url('https://images.unsplash.com/photo-1535223289827-42f1e9919769?auto=format&fit=crop&w=2000&q=70');
-  background-size:cover;
-  background-position:center;
-  opacity:0.18;
-  filter:blur(2px) saturate(1.4);
-  z-index:-2;
-}
-
-/* غلاف غامق */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  background:radial-gradient(circle at center, rgba(0,0,0,0.4), rgba(0,0,0,0.85));
-  z-index:-1;
+body::before {
+  display: none !important;
 }
 
 .container{
   width:100%;
   max-width:720px;
 
-  background:rgba(0,0,0,0.45);
-  border:1px solid rgba(0,255,170,0.25);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 255, 180, 0.4);
 
-  backdrop-filter:blur(22px);
+  backdrop-filter:blur(15px);
   padding:24px 22px;
 
   border-radius:26px;
@@ -244,28 +225,17 @@ button:hover{
   margin-bottom:16px;
 }
 
-.floating-label{
-  text-align:right;
-  width:100%;
-  font-size:13px;
-  margin-bottom:6px;
-  opacity:0.75;
-  font-weight:600;
-  letter-spacing:0.2px;
-}
 
-.input-box input{
-  width:100%;
-  padding:14px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,0.08);
-  background:rgba(11,18,32,0.75);
-  color:#fff;
-  box-sizing:border-box;
-  outline:none;
-  transition:0.25s;
-  text-align:right;
-  direction:rtl;
+.input-box input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 255, 180, 0.5);
+  background: rgba(11, 18, 32, 0.75);
+  color: #fff;
+  text-align: right;
+  direction: rtl;
+  transition: 0.25s;
 }
 
 .input-box input:focus{
@@ -375,35 +345,16 @@ button:hover{
   margin-top:10px;
 }
 
-.question-title{
-  text-align:center;
-  font-size:0px;
-  font-weight:90;
-  margin-bottom:6px;
-  line-height:1.6;
+
+.question-title {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  color: #fff;
+  text-align: center;
 }
 
-.question-title span{
-  font-size:14px;
-  opacity:0.7;
-  font-weight:600;
-}
-
-.question-title{
-  font-size:22px;
-  font-weight:800;
-  line-height:1.6;
-  margin-bottom:14px;
-  color:#fff;
-}
-
-.question-title span{
-  display:block;
-  font-size:14px;
-  font-weight:600;
-  opacity:0.65;
-  margin-top:6px;
-}
 
 .choice-group{
   display:flex;
@@ -442,6 +393,10 @@ input, button, .choice {
   touch-action: manipulation;
 }
 
+.container {
+  will-change: transform; /* لتحسين أداء الحركات */
+}
+
 @media (max-width: 600px) {
   .container {
     padding: 18px;
@@ -460,6 +415,9 @@ input, button, .choice {
     overflow-y: auto;
   }
 }
+.input-box input {
+    border: 1px solid rgba(0, 255, 180, 0.5) !important;
+  }
 
 </style>
 </head>
@@ -479,9 +437,7 @@ input, button, .choice {
     </div>
 
 <div style="text-align:center;margin-bottom:10px;opacity:0.9;">
-  <h2 style="margin:0;font-weight:800;">
-    ابدأ رحلتك الآن 🚀
-  </h2>
+ 
   <p style="margin:8px 0 0 0;font-size:14px;opacity:0.7;">
     بياناتك آمنة 100% ولن يتم مشاركتها
   </p>
@@ -641,7 +597,7 @@ document.querySelectorAll(".choice").forEach(c => {
   c.addEventListener("click", () => {
     document.querySelectorAll(".choice").forEach(x => x.classList.remove("active"));
     c.classList.add("active");
-    document.getElementById("commitment").value = c.dataset;
+    document.getElementById("commitment").value = c.getAttribute('data');
   });
 });
 
